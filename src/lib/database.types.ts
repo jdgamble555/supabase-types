@@ -73,6 +73,24 @@ export type Database = {
           },
         ]
       }
+      courses: {
+        Row: {
+          id: number
+          img_src: string
+          title: string
+        }
+        Insert: {
+          id?: number
+          img_src: string
+          title: string
+        }
+        Update: {
+          id?: number
+          img_src?: string
+          title?: string
+        }
+        Relationships: []
+      }
       posts: {
         Row: {
           content: string
@@ -105,6 +123,41 @@ export type Database = {
             isOneToOne: false
             referencedRelation: "users"
             referencedColumns: ["user_id"]
+          },
+        ]
+      }
+      user_progress: {
+        Row: {
+          active_course_id: number
+          hearts: number
+          points: number
+          user_id: string
+          user_image_src: string
+          user_name: string
+        }
+        Insert: {
+          active_course_id: number
+          hearts?: number
+          points?: number
+          user_id: string
+          user_image_src?: string
+          user_name?: string
+        }
+        Update: {
+          active_course_id?: number
+          hearts?: number
+          points?: number
+          user_id?: string
+          user_image_src?: string
+          user_name?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "user_progress_active_course_id_fkey"
+            columns: ["active_course_id"]
+            isOneToOne: false
+            referencedRelation: "courses"
+            referencedColumns: ["id"]
           },
         ]
       }
