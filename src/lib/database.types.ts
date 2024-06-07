@@ -73,24 +73,6 @@ export type Database = {
           },
         ]
       }
-      courses: {
-        Row: {
-          id: number
-          img_src: string
-          title: string
-        }
-        Insert: {
-          id?: number
-          img_src: string
-          title: string
-        }
-        Update: {
-          id?: number
-          img_src?: string
-          title?: string
-        }
-        Relationships: []
-      }
       posts: {
         Row: {
           content: string
@@ -126,40 +108,94 @@ export type Database = {
           },
         ]
       }
-      user_progress: {
+      projects: {
         Row: {
-          active_course_id: number
-          hearts: number
-          points: number
-          user_id: string
-          user_image_src: string
-          user_name: string
+          created_at: string
+          error_message: string | null
+          evaluation_criterias: Json | null
+          hyperparams_map: Json | null
+          id: string
+          last_executed_at: string | null
+          name: string | null
+          settings: Json | null
+          source_id: string | null
+          start_date: string | null
+          updated_at: string | null
         }
         Insert: {
-          active_course_id: number
-          hearts?: number
-          points?: number
-          user_id: string
-          user_image_src?: string
-          user_name?: string
+          created_at?: string
+          error_message?: string | null
+          evaluation_criterias?: Json | null
+          hyperparams_map?: Json | null
+          id: string
+          last_executed_at?: string | null
+          name?: string | null
+          settings?: Json | null
+          source_id?: string | null
+          start_date?: string | null
+          updated_at?: string | null
         }
         Update: {
-          active_course_id?: number
-          hearts?: number
-          points?: number
-          user_id?: string
-          user_image_src?: string
-          user_name?: string
+          created_at?: string
+          error_message?: string | null
+          evaluation_criterias?: Json | null
+          hyperparams_map?: Json | null
+          id?: string
+          last_executed_at?: string | null
+          name?: string | null
+          settings?: Json | null
+          source_id?: string | null
+          start_date?: string | null
+          updated_at?: string | null
         }
         Relationships: [
           {
-            foreignKeyName: "user_progress_active_course_id_fkey"
-            columns: ["active_course_id"]
-            isOneToOne: false
-            referencedRelation: "courses"
+            foreignKeyName: "projects_id_fkey"
+            columns: ["id"]
+            isOneToOne: true
+            referencedRelation: "user_projects"
             referencedColumns: ["id"]
           },
         ]
+      }
+      user_projects: {
+        Row: {
+          created_at: string
+          id: string
+          name: string | null
+          req_hyperparams_map: Json | null
+          req_model_id: string | null
+          req_settings: Json | null
+          req_source_id: string | null
+          req_start_date: string | null
+          updated_at: string | null
+          user_id: string | null
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          name?: string | null
+          req_hyperparams_map?: Json | null
+          req_model_id?: string | null
+          req_settings?: Json | null
+          req_source_id?: string | null
+          req_start_date?: string | null
+          updated_at?: string | null
+          user_id?: string | null
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          name?: string | null
+          req_hyperparams_map?: Json | null
+          req_model_id?: string | null
+          req_settings?: Json | null
+          req_source_id?: string | null
+          req_start_date?: string | null
+          updated_at?: string | null
+          user_id?: string | null
+        }
+        Relationships: []
       }
       users: {
         Row: {
