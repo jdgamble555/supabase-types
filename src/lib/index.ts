@@ -4,31 +4,38 @@ import type { Database } from './database.types';
 const supabase = createClient<Database>('url', 'key');
 
 
+//
+// 'posts' - Does not work
+//
 
-// works as expected (array)
-const test1 = await supabase.from('posts').select('*, comments(*)');
+// DOES NOT WORK, 'users' is possibly null, clearly there is a required FK
+const test1 = await supabase.from('posts').select('users(*)')
 
-// works as expected (array)
-const test2 = await supabase.from('users').select('*, posts(*)');
+// DOES NOT WORK, 'user_id' is empty array
+const test2 = await supabase.from('posts').select('user_id(*)');
+
+// DOES NOT WORK, 'user' is empty array
+const test3 = await supabase.from('posts').select('user:user_id(*)');
+
+// DOES NOT WORK, 'users' is array instead of single
+const test4 = await supabase.from('posts').select('users!user_id(*)');
+
+// DOES NOT WORK, 'user' is array instead of single
+const test5 = await supabase.from('posts').select('user:users!user_id(*)');
+
+//
+// 'posts' - Works
+//
+
+// Works, 'users' is single
+const test6 = await supabase.from('posts').select('users!inner(*)');
+
+// Works, 'user' is single
+const test7 = await supabase.from('posts').select('user:users!inner(*)');
 
 
-// DOES NOT WORK, is empty array
-const test5 = await supabase.from('posts').select('*, user:user_id(*)')
 
-// DOES NOT WORK, is possibly null
-const test6 = await supabase.from('posts').select('*, user:users(*)');
 
-// DOES NOT WORK, is array instead of single
-const test7 = await supabase.from('posts').select('*, user:users!user_id(*)');
-
-// DOES NOT WORK, is array instead of single
-const test8 = await supabase.from('posts').select('*, user:users!inner(*)');
-
-const test9 = await supabase.from('posts').select('*, user:user_id!inner(*)')
-
-const test10 = await supabase.from('user_projects').select("id, project:projects!inner(*)");
-
-const test11 = await supabase.from('projects').select('id, user_projects!inner(*)');
 
 
 
