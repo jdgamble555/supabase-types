@@ -108,6 +108,41 @@ export type Database = {
           },
         ]
       }
+      profiles: {
+        Row: {
+          id: string
+        }
+        Insert: {
+          id?: string
+        }
+        Update: {
+          id?: string
+        }
+        Relationships: []
+      }
+      profiles_classes: {
+        Row: {
+          id: string
+          profile_id: string
+        }
+        Insert: {
+          id?: string
+          profile_id: string
+        }
+        Update: {
+          id?: string
+          profile_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "profiles_classes_profile_id_fkey"
+            columns: ["profile_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       users: {
         Row: {
           created_at: string

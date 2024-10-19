@@ -23,5 +23,14 @@ CREATE TABLE comments(
     created_at timestamptz NOT NULL DEFAULT now()
 );
 
+create table profiles(
+    id uuid NOT NULL PRIMARY KEY DEFAULT gen_random_uuid()
+);
+
+create table profiles_classes(
+    id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+    profile_id uuid NOT NULL REFERENCES profiles(id) ON DELETE CASCADE
+);
+
 
 
