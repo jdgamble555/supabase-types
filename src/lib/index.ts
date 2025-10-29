@@ -45,6 +45,9 @@ const test6 = await supabase.from('posts').select('users!inner(*)');
 // Works, 'user' is single
 const test7 = await supabase.from('posts').select('user:users!inner(*)');
 
+// COUNT test
+
+const test8 = await supabase.from('comments').select('content, user_count');
 
 
 

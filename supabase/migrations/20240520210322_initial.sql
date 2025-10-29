@@ -33,4 +33,11 @@ create table profiles_classes(
 );
 
 
-
+CREATE OR REPLACE FUNCTION public.user_count(comments)
+RETURNS bigint
+LANGUAGE sql
+SET search_path = ''
+AS $$
+  SELECT COUNT(*)
+  FROM public.comments WHERE comments.user_id = auth.uid();
+$$;
